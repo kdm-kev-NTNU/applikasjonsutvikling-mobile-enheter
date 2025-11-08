@@ -11,6 +11,8 @@ interface SelectedListPaneProps {
     onAddItem: (text: string) => void;
     onToggleItem: (itemId: number) => void;
     onDeleteList: () => void;
+    // Når true, forsøk å auto-fokusere vare-input (f.eks. rett etter ny liste er opprettet)
+    autoFocusItemInput?: boolean;
 }
 
 const SelectedListPane: React.FC<SelectedListPaneProps> = ({
@@ -19,7 +21,8 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
     onItemDraftChange,
     onAddItem,
     onToggleItem,
-    onDeleteList
+    onDeleteList,
+    autoFocusItemInput
 }) => {
     return (
         <div style={{ paddingTop: 4 }}>
@@ -33,6 +36,7 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
                 initialValue={itemDraft}
                 onValueChange={onItemDraftChange}
                 onSubmit={onAddItem}
+                autoFocus={!!autoFocusItemInput}
             />
             <div style={{ padding: '0 12px', fontWeight: 600, marginTop: 8 }}>Ukjøpt</div>
             <IonList inset>

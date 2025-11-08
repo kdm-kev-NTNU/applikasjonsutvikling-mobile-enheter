@@ -15,6 +15,8 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
     const [selectedListId, setSelectedListId] = useState<number | null>(null);
     const [itemDrafts, setItemDrafts] = useState<{ [listId: number]: string }>({});
     const [listDraft, setListDraft] = useState('');
+    // Når vi oppretter ny liste, vil vi auto-fokusere vare-input med engang
+    const [focusItemInputOnce, setFocusItemInputOnce] = useState(false);
 
     const handleAddListByText = (text: string) => {
         const t = (text || '').trim();
@@ -23,6 +25,9 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
         setLists(prev => [...prev, next]);
         setSelectedListId(next.id);
         setListDraft('');
+        // Be om fokus på vare-input når panelet kommer opp, og slå det av igjen etter litt
+        setFocusItemInputOnce(true);
+        setTimeout(() => setFocusItemInputOnce(false), 500);
     };
 
     const handleDeleteList = (id: number) => {
@@ -89,6 +94,7 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
                     onAddItem={(v) => handleAddItem(selected.id, v)}
                     onToggleItem={(itemId) => toggleItem(selected.id, itemId)}
                     onDeleteList={() => handleDeleteList(selected.id)}
+                    autoFocusItemInput={focusItemInputOnce}
                 />
             )}
         </>

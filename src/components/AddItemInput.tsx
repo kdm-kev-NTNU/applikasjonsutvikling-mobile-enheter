@@ -6,12 +6,17 @@ interface AddItemInputProps {
     initialValue?: string;
     onValueChange?: (value: string) => void;
     onSubmit?: (value: string) => void;
+    // Når true: forsøk å fokusere input ved mount/oppdatering for å åpne tastatur (spesielt Android)
+    autoFocus?: boolean;
 }
 
-const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, onValueChange, onSubmit }) => {
+const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, onValueChange, onSubmit, autoFocus }) => {
     const [text, setText] = useState(initialValue || '');
     // Holder en ref til IonInput slik at vi kan fokusere feltet etter submit
     const inputRef = useRef<any>(null);
+    // Ref til "Legg til"-knappen og en enkel guard mot dobbel-submit
+    const buttonRef = useRef<any>(null);
+    const submittingRef = useRef(false);
 
     useEffect(() => {
         if (initialValue !== undefined) {
@@ -25,6 +30,25 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
         if (onValueChange) {
             onValueChange(v);
         }
+    };
+
+    // Fokuserer og trykker "Legg til"-knappen (for Enter-støtte på web/Android)
+    const clickAddButton = () => {
+        const trimmed = (text || '').trim();
+        if (!trimmed) return;
+        if (submittingRef.current) return;
+        submittingRef.current = true;
+        try {
+            buttonRef.current?.setFocus?.();
+        } catch { }
+        setTimeout(() => {
+            try {
+                buttonRef.current?.click?.();
+            } catch { }
+            setTimeout(() => {
+                submittingRef.current = false;
+            }, 150);
+        }, 0);
     };
 
     const handleSubmit = () => {
@@ -43,7 +67,7 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
         setTimeout(() => {
             try {
                 inputRef.current?.setFocus?.();
-            } catch {}
+            } catch { }
         }, 80);
     };
 
@@ -58,13 +82,13 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
                     const onKeyDown = (e: KeyboardEvent) => {
                         if (e.key === 'Enter') {
                             e.preventDefault();
-                            handleSubmit();
+                            clickAddButton();
                         }
                     };
                     el.addEventListener('keydown', onKeyDown);
                     cleanup = () => el.removeEventListener('keydown', onKeyDown);
                 }
-            } catch {}
+            } catch { }
         })();
 
         return () => {
@@ -72,20 +96,42 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
         };
     }, []);
 
+    // Enkel auto-focus når flagget er satt (f.eks. rett etter ny liste er opprettet)
+    useEffect(() => {
+        if (!autoFocus) return;
+        const t = setTimeout(() => {
+            try {
+                // Litt lenger delay enn refokus etter submit, så dette vinner fokus
+                inputRef.current?.setFocus?.();
+            } catch { }
+        }, 150);
+        return () => clearTimeout(t);
+    }, [autoFocus]);
+
     return (
-        <IonItem style={{ margin: 12 }}>
-            <IonInput
-                ref={inputRef}
-                value={text}
-                placeholder={placeholder || 'Skriv noe...'}
-                onIonChange={handleChange}
-                type="text"
-                enterkeyhint="done"
-            />
-            <IonButton slot="end" onClick={handleSubmit} disabled={!text}>
-                Legg til
-            </IonButton>
-        </IonItem>
+        <form onSubmit={(e) => { e.preventDefault(); clickAddButton(); }}>
+            <IonItem style={{ margin: 12 }}>
+                <IonInput
+                    ref={inputRef}
+                    value={text}
+                    placeholder={placeholder || 'Skriv noe...'}
+                    // Viktig: onIonInput oppdaterer på hver tast (onIonChange kan fyre først ved blur)
+                    onIonInput={handleChange}
+                    // Legger også på keydown her i tillegg til native-lytter, bare for å være helt sikker
+                    onKeyDown={(e: any) => {
+                        if (e?.key === 'Enter') {
+                            e.preventDefault();
+                            clickAddButton();
+                        }
+                    }}
+                    type="text"
+                    enterkeyhint="done"
+                />
+                <IonButton ref={buttonRef} slot="end" onClick={handleSubmit}>
+                    Legg til
+                </IonButton>
+            </IonItem>
+        </form>
     );
 };
 
