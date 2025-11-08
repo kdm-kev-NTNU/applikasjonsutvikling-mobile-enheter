@@ -78,7 +78,7 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
                     type="text"
                     enterkeyhint="done"
                 />
-                <IonButton type="submit" slot="end" onClick={handleSubmit}>
+                <IonButton type="submit" slot="end">
                     Legg til
                 </IonButton>
             </IonItem>
