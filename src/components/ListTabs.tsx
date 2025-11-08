@@ -22,7 +22,7 @@ const ListTabs: React.FC<ListTabsProps> = ({ selectedId, lists, onSelect }) => {
                 }}
             >
                 {lists.map((l) => (
-                    <IonSegmentButton key={l.id} value={String(l.id)} tabIndex={0}>
+                    <IonSegmentButton key={l.id} value={String(l.id)}>
                         <IonLabel>{l.title}</IonLabel>
                     </IonSegmentButton>
                 ))}

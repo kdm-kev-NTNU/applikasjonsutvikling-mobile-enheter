@@ -47,7 +47,6 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
                         button
                         detail={false}
                         onClick={() => onToggleItem(it.id)}
-                        tabIndex={0}
                     >
                         <div className="item-row">
                             <div className="item-index">{idx + 1}.</div>
@@ -64,7 +63,6 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
                         button
                         detail={false}
                         onClick={() => onToggleItem(it.id)}
-                        tabIndex={0}
                         className="item-done"
                     >
                         <div className="item-row">
