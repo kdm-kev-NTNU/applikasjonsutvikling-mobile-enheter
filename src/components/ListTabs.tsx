@@ -1,4 +1,5 @@
 import { IonLabel, IonSegment, IonSegmentButton } from '@ionic/react';
+import './ListTabs.css';
 
 type Tab = { id: number; title: string };
 
@@ -10,7 +11,7 @@ interface ListTabsProps {
 
 const ListTabs: React.FC<ListTabsProps> = ({ selectedId, lists, onSelect }) => {
     return (
-        <div style={{ padding: '0 12px', marginTop: 4 }}>
+        <div className="tabs-wrapper">
             <IonSegment
                 value={selectedId ? String(selectedId) : undefined}
                 onIonChange={(e) => {

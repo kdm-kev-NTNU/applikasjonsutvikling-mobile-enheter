@@ -1,5 +1,6 @@
 import { IonButton, IonItem, IonList } from '@ionic/react';
 import AddItemInput from './AddItemInput';
+import './SelectedListPane.css';
 
 type TodoItem = { id: number; text: string; done: boolean };
 type ListModel = { id: number; title: string; items: TodoItem[] };
@@ -25,8 +26,8 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
     autoFocusItemInput
 }) => {
     return (
-        <div style={{ paddingTop: 4 }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '6px 12px' }}>
+        <div className="selected-pane">
+            <div className="pane-toolbar">
                 <IonButton color="danger" fill="outline" size="small" onClick={onDeleteList}>
                     Slett liste
                 </IonButton>
@@ -38,7 +39,7 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
                 onSubmit={onAddItem}
                 autoFocus={!!autoFocusItemInput}
             />
-            <div style={{ padding: '0 12px', fontWeight: 600, marginTop: 8 }}>Ukjøpt</div>
+            <div className="section-title">Ukjøpt</div>
             <IonList inset>
                 {list.items.filter(it => !it.done).map((it, idx) => (
                     <IonItem
@@ -48,14 +49,14 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
                         onClick={() => onToggleItem(it.id)}
                         tabIndex={0}
                     >
-                        <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: 8 }}>
-                            <div style={{ fontWeight: 600 }}>{idx + 1}.</div>
-                            <div style={{ flex: 1 }}>{it.text}</div>
+                        <div className="item-row">
+                            <div className="item-index">{idx + 1}.</div>
+                            <div className="item-text">{it.text}</div>
                         </div>
                     </IonItem>
                 ))}
             </IonList>
-            <div style={{ padding: '0 12px', fontWeight: 600, marginTop: 8 }}>Kjøpt</div>
+            <div className="section-title">Kjøpt</div>
             <IonList inset>
                 {list.items.filter(it => it.done).map((it, idx) => (
                     <IonItem
@@ -64,11 +65,11 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
                         detail={false}
                         onClick={() => onToggleItem(it.id)}
                         tabIndex={0}
-                        style={{ opacity: 0.8 }}
+                        className="item-done"
                     >
-                        <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: 8 }}>
-                            <div style={{ fontWeight: 600 }}>{idx + 1}.</div>
-                            <div style={{ flex: 1, textDecoration: 'line-through' }}>{it.text}</div>
+                        <div className="item-row">
+                            <div className="item-index">{idx + 1}.</div>
+                            <div className="item-text item-text--done">{it.text}</div>
                         </div>
                     </IonItem>
                 ))}

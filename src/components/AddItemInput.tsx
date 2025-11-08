@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { IonButton, IonInput, IonItem } from '@ionic/react';
+import './AddItemInput.css';
+
+
+//Todo:: Fikse det slik at når man trykket på et input felt, så dukker tastaturet opp
 
 interface AddItemInputProps {
     placeholder?: string;
@@ -110,7 +114,7 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
 
     return (
         <form onSubmit={(e) => { e.preventDefault(); clickAddButton(); }}>
-            <IonItem style={{ margin: 12 }}>
+            <IonItem className="add-item">
                 <IonInput
                     ref={inputRef}
                     value={text}

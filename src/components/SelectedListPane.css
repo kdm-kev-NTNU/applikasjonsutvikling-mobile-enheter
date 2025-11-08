@@ -1,0 +1,38 @@
+.selected-pane {
+    padding-top: 4px;
+}
+
+.pane-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 6px 12px;
+}
+
+.section-title {
+    padding: 0 12px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+}
+
+.item-index {
+    font-weight: 600;
+}
+
+.item-text {
+    flex: 1;
+}
+
+.item-text--done {
+    text-decoration: line-through;
+}
+
+.item-done {
+    opacity: 0.8;
+}
