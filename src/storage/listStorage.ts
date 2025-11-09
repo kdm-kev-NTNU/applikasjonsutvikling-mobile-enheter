@@ -1,4 +1,6 @@
 import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
+import { Capacitor } from '@capacitor/core';
+import { Share } from '@capacitor/share';
 
 export type TodoItem = { id: number; text: string; done: boolean };
 export type ListModel = { id: number; title: string; items: TodoItem[] };
@@ -15,7 +17,7 @@ async function ensureBaseDir(): Promise<void> {
     } catch (err: any) {
         // Ignorer om den allerede eksisterer
         if (!err || (typeof err.message === 'string' && !err.message.includes('exists'))) {
-            
+
         }
     }
 }
@@ -85,4 +87,36 @@ export async function deleteListFile(listId: number): Promise<void> {
     }
 }
 
+export async function exportListToDownloads(list: ListModel): Promise<{ filename: string; where: 'downloads' | 'share' }> {
+    const fname = `handlelister-list-${list.id}.json`;
+    const data = JSON.stringify(list, null, 2);
 
+    if (Capacitor.getPlatform() === 'android') {
+        try {
+            await Filesystem.writeFile({
+                // nedlastingsmappe
+                path: `Download/${fname}`,
+                directory: Directory.ExternalStorage,
+                data,
+                encoding: Encoding.UTF8,
+                recursive: true
+            });
+            return { filename: fname, where: 'downloads' };
+        } catch {
+            // faller tilbake til dele-ark under
+        }
+    }
+
+    //Lag midlertidig fil og åpne dele-ark
+    const tempPath = `export/${fname}`;
+    await Filesystem.writeFile({
+        path: tempPath,
+        directory: Directory.Cache,
+        data,
+        encoding: Encoding.UTF8,
+        recursive: true
+    });
+    const uri = await Filesystem.getUri({ path: tempPath, directory: Directory.Cache });
+    await Share.share({ url: uri.uri, title: 'Eksporter liste', text: fname });
+    return { filename: fname, where: 'share' };
+}

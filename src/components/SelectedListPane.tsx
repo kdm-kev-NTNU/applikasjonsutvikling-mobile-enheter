@@ -14,6 +14,7 @@ interface SelectedListPaneProps {
     onDeleteList: () => void;
     // Når true, forsøk å auto-fokusere vare-input (f.eks. rett etter ny liste er opprettet)
     autoFocusItemInput?: boolean;
+    onExportList: () => void;
 }
 
 const SelectedListPane: React.FC<SelectedListPaneProps> = ({
@@ -23,13 +24,17 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
     onAddItem,
     onToggleItem,
     onDeleteList,
-    autoFocusItemInput
+    autoFocusItemInput,
+    onExportList
 }) => {
     return (
         <div className="selected-pane">
             <div className="pane-toolbar">
                 <IonButton color="danger" fill="outline" size="small" onClick={onDeleteList}>
                     Slett liste
+                </IonButton>
+                <IonButton color="primary" fill="outline" size="small" onClick={onExportList}>
+                    Eksporter til Nedlastinger
                 </IonButton>
             </div>
             <AddItemInput
