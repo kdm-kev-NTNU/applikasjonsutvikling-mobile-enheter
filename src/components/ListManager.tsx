@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import AddItemInput from './AddItemInput';
 import ListTabs from './ListTabs';
 import SelectedListPane from './SelectedListPane';
-
-type TodoItem = { id: number; text: string; done: boolean };
-type ListModel = { id: number; title: string; items: TodoItem[] };
+import { deleteListFile, readAllLists, saveList, type ListModel, type TodoItem } from '../storage/listStorage';
 
 interface ListManagerProps {
     onSelectedTitleChange?: (title: string) => void;
@@ -16,8 +14,18 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
     const [selectedListId, setSelectedListId] = useState<number | null>(null);
     const [itemDrafts, setItemDrafts] = useState<{ [listId: number]: string }>({});
     const [listDraft, setListDraft] = useState('');
-    // Brukes én gang etter ny liste for å fokusere vare-input (holder tastatur åpent).
     const [focusItemInputOnce, setFocusItemInputOnce] = useState(false);
+
+    // Last inn eksisterende lister ved oppstart
+    useEffect(() => {
+        (async () => {
+            const loaded = await readAllLists();
+            setLists(loaded);
+            if (loaded.length > 0) {
+                setSelectedListId(loaded[0].id);
+            }
+        })();
+    }, []);
 
     const handleAddListByText = (text: string) => {
         const t = (text || '').trim();
@@ -29,6 +37,8 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
         // Be om fokus på vare-input når panelet vises, og slå det raskt av igjen.
         setFocusItemInputOnce(true);
         setTimeout(() => setFocusItemInputOnce(false), 500);
+        // lagre ny liste til fil
+        void saveList(next);
     };
 
     const handleDeleteList = (id: number) => {
@@ -41,6 +51,8 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
         if (selectedListId === id) {
             setSelectedListId(null);
         }
+        // Slett fil fra disk
+        void deleteListFile(id);
     };
 
     useEffect(() => {
@@ -54,23 +66,26 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
     const handleAddItem = (listId: number, text: string) => {
         const t = (text || '').trim();
         if (!t) return;
-        setLists(prev => prev.map(l => {
-            if (l.id !== listId) return l;
-            const ni: TodoItem = { id: Date.now(), text: t, done: false };
-            return { ...l, items: [...l.items, ni] };
-        }));
+        // Beregn oppdatert liste og persistér til fil
+        const current = lists.find(l => l.id === listId);
+        if (!current) return;
+        const ni: TodoItem = { id: Date.now(), text: t, done: false };
+        const updated: ListModel = { ...current, items: [...current.items, ni] };
+        setLists(prev => prev.map(l => (l.id === listId ? updated : l)));
         setItemDrafts(prev => ({ ...prev, [listId]: '' }));
+        void saveList(updated);
     };
 
     const toggleItem = (listId: number, itemId: number) => {
-        // Togglar done-flagget uten å mutere eksisterende state.
-        setLists(prev => prev.map(l => {
-            if (l.id !== listId) return l;
-            return {
-                ...l,
-                items: l.items.map(it => it.id === itemId ? { ...it, done: !it.done } : it)
-            };
-        }));
+        // Toggle done-flagget uten å endre eksisterende state.
+        const current = lists.find(l => l.id === listId);
+        if (!current) return;
+        const updated: ListModel = {
+            ...current,
+            items: current.items.map(it => it.id === itemId ? { ...it, done: !it.done } : it)
+        };
+        setLists(prev => prev.map(l => (l.id === listId ? updated : l)));
+        void saveList(updated);
     };
 
     const selected = lists.find(l => l.id === selectedListId) || null;
