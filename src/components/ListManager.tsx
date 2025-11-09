@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import AddItemInput from './AddItemInput';
 import ListTabs from './ListTabs';
 import SelectedListPane from './SelectedListPane';
-import { deleteListFile, readAllLists, saveList, type ListModel, type TodoItem, exportListToDownloads } from '../storage/listStorage';
-import { Capacitor } from '@capacitor/core';
+import { deleteListFile, readAllLists, saveList, type ListModel, type TodoItem } from '../storage/listStorage';
 
 interface ListManagerProps {
     onSelectedTitleChange?: (title: string) => void;
@@ -117,8 +116,6 @@ const ListManager: React.FC<ListManagerProps> = ({ onSelectedTitleChange }) => {
                     onToggleItem={(itemId) => toggleItem(selected.id, itemId)}
                     onDeleteList={() => handleDeleteList(selected.id)}
                     autoFocusItemInput={focusItemInputOnce}
-                    onExportList={() => { if (selected) { void exportListToDownloads(selected); } }}
-					showExportButton={Capacitor.getPlatform() === 'android'}
                 />
             )}
         </>
