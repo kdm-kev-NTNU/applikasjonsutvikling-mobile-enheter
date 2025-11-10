@@ -5,9 +5,25 @@ export type TodoItem = { id: number; text: string; done: boolean };
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 const LISTS_DIR = 'lists';
+const VERBOSE_LOG_DIR = false; // sett til true for mer katalog-logging
 
 function listPath(id: number): string {
     return `${LISTS_DIR}/list-${id}.json`;
+}
+
+function fileNamesFromReaddir(res: any): string[] {
+    const raw = (res as any).files as any[] || [];
+    return raw.map((f: any) => (typeof f === 'string' ? f : f?.name)).filter(Boolean);
+}
+
+async function logListsDir(context: string): Promise<void> {
+    try {
+        const res = await Filesystem.readdir({ directory: Directory.Data, path: LISTS_DIR });
+        const names = fileNamesFromReaddir(res);
+        console.log(`[storage] ${context}: ${names.length} fil(er) i '${LISTS_DIR}'`, names);
+    } catch (e) {
+        console.warn('[storage] kunne ikke liste katalog:', e);
+    }
 }
 
 async function ensureListsDir(): Promise<void> {
@@ -30,10 +46,8 @@ export async function readAllLists(): Promise<ListModel[]> {
             directory: Directory.Data,
             path: LISTS_DIR
         });
-        const raw = (res as any).files as any[] || [];
-        const names: string[] = raw.map((f: any) => (typeof f === 'string' ? f : f?.name)).filter(Boolean);
-
-        console.log('[storage] readdir lists:', names);
+        const names = fileNamesFromReaddir(res);
+        console.log(`[storage] oppstart: ${names.length} fil(er) i '${LISTS_DIR}'`, names);
 
         const lists: ListModel[] = [];
         for (const name of names) {
@@ -51,14 +65,14 @@ export async function readAllLists(): Promise<ListModel[]> {
                     lists.push(parsed);
                 }
             } catch (e) {
-                console.warn('[storage] failed to read/parse file:', name, e);
+                console.warn('[storage] klarte ikke å lese/tolke filen', name, e);
             }
         }
 
         lists.sort((a, b) => (a.title.localeCompare(b.title) || a.id - b.id));
         return lists;
     } catch (e) {
-        console.warn('[storage] readdir failed, returning empty list', e);
+        console.warn('[storage] lesing av katalog feilet, returnerer tom liste', e);
         return [];
     }
 }
@@ -72,15 +86,12 @@ export async function saveList(list: ListModel): Promise<void> {
             data: JSON.stringify(list),
             encoding: 'utf8' as Encoding
         });
-        // Logg innholdet i katalogen etter skriving
-        try {
-            const res = await Filesystem.readdir({ directory: Directory.Data, path: LISTS_DIR });
-            const raw = (res as any).files as any[] || [];
-            const names: string[] = raw.map((f: any) => (typeof f === 'string' ? f : f?.name)).filter(Boolean);
-            console.log('[storage] after save, files:', names);
-        } catch { /* noop */ }
+        console.log(`[storage] lagret liste #${list.id} -> ${listPath(list.id)}`);
+        if (VERBOSE_LOG_DIR) {
+            await logListsDir('etter lagring');
+        }
     } catch (e) {
-        console.warn('[storage] saveList failed', e);
+        console.warn('[storage] saveList feilet', e);
         throw e;
     }
 }
@@ -94,13 +105,10 @@ export async function deleteListFile(listId: number): Promise<void> {
         });
     } catch (e) {
         // Fil finnes kanskje ikke; logg og fortsett
-        console.warn('[storage] deleteListFile warning', e);
+        console.warn('[storage] deleteListFile advarsel', e);
     }
-    // Logg innholdet i katalogen etter sletting
-    try {
-        const res = await Filesystem.readdir({ directory: Directory.Data, path: LISTS_DIR });
-        const raw = (res as any).files as any[] || [];
-        const names: string[] = raw.map((f: any) => (typeof f === 'string' ? f : f?.name)).filter(Boolean);
-        console.log('[storage] after delete, files:', names);
-    } catch { }
+    console.log(`[storage] slettet fil for liste #${listId} -> ${listPath(listId)}`);
+    if (VERBOSE_LOG_DIR) {
+        await logListsDir('etter sletting');
+    }
 }
