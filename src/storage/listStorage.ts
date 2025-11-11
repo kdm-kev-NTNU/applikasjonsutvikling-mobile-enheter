@@ -181,7 +181,16 @@ export async function saveList(list: ListModel): Promise<void> {
             const previousCount = Array.isArray(existing.items) ? existing.items.length : 0;
             const newCount = Array.isArray(list.items) ? list.items.length : 0;
             if (newCount > previousCount) {
-                console.log(`[storage] la til item i liste '${list.title}' (#${list.id})`);
+                const prevIds = new Set<number>((existing.items || []).map(i => i.id));
+                const addedItems = (list.items || []).filter(i => !prevIds.has(i.id));
+                if (addedItems.length > 0) {
+                    for (const item of addedItems) {
+                        const name = typeof item?.text === 'string' ? item.text : '';
+                        console.log(`[storage] la til item '${name}' i liste '${list.title}' (#${list.id})`);
+                    }
+                } else {
+                    console.log(`[storage] la til item i liste '${list.title}' (#${list.id})`);
+                }
             }
         }
         // Lazy migrasjon: forsøk å slette gammel id-basert fil (om den finnes)
