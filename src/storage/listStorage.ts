@@ -7,13 +7,7 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 const LISTS_DIR = 'lists';
 const VERBOSE_LOG_DIR = false; // sett til true for mer katalog-logging
 
-function listPath(id: number): string {
-    return `${LISTS_DIR}/list-${id}.json`;
-}
-
-function oldFileName(id: number): string {
-    return `list-${id}.json`;
-}
+// (legacy navn fjernet)
 
 function slugifyTitle(input: string): string {
     const lower = String(input || '').toLowerCase().trim();
@@ -55,7 +49,7 @@ async function findExistingFileForId(id: number): Promise<string | null> {
         const idSuffix = `-${id}.json`;
         for (const name of names) {
             if (!String(name).endsWith('.json')) continue;
-            if (name === oldFileName(id) || name.endsWith(idSuffix)) {
+            if (name.endsWith(idSuffix)) {
                 return `${LISTS_DIR}/${name}`;
             }
         }
@@ -193,15 +187,6 @@ export async function saveList(list: ListModel): Promise<void> {
                 }
             }
         }
-        // Lazy migrasjon: forsøk å slette gammel id-basert fil (om den finnes)
-        try {
-            await Filesystem.deleteFile({
-                directory: Directory.Data,
-                path: listPath(list.id)
-            });
-        } catch {
-            // ignorer hvis den ikke finnes
-        }
         if (VERBOSE_LOG_DIR) {
             await logListsDir('etter lagring');
         }
@@ -220,12 +205,6 @@ export async function deleteListFile(listId: number): Promise<void> {
             await Filesystem.deleteFile({
                 directory: Directory.Data,
                 path: existingPath
-            });
-        } else {
-            // Fallback: forsøk å slette gammel id-basert sti
-            await Filesystem.deleteFile({
-                directory: Directory.Data,
-                path: listPath(listId)
             });
         }
         if (existing) {
