@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { IonButton, IonInput, IonItem } from '@ionic/react';
 import './AddItemInput.css';
+import { Keyboard } from '@capacitor/keyboard';
 
 
 // Note: Denne brukes både til "Ny liste..." og "Legg til vare...".
@@ -51,8 +52,15 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
         setTimeout(() => {
             try {
                 inputRef.current?.setFocus?.();
+                void Keyboard.show();
             } catch { }
         }, 80);
+    };
+
+    const handleFocus = async () => {
+        try {
+            await Keyboard.show();
+        } catch { }
     };
 
     // Enkel auto-focus når parent ber om det (rett etter ny liste)
@@ -61,6 +69,7 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
         const t = setTimeout(() => {
             try {
                 inputRef.current?.setFocus?.();
+                void Keyboard.show();
             } catch { }
         }, 150);
         return () => clearTimeout(t);
@@ -69,13 +78,18 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
     return (
         // Form gjør at Enter i input kjører onSubmit
         <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
-            <IonItem className="add-item">
+            <IonItem className="add-item" onClick={() => {
+                inputRef.current?.setFocus?.();
+                setTimeout(() => { void Keyboard.show(); }, 10);
+            }}>
                 <IonInput
                     ref={inputRef}
                     value={text}
                     placeholder={placeholder || 'Skriv noe...'}
                     onIonInput={handleChange}
+                    onIonFocus={handleFocus}
                     type="text"
+                    inputmode="text"
                     enterkeyhint="done"
                 />
                 <IonButton type="submit" slot="end">
