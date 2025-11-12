@@ -22,6 +22,7 @@ const ListTabs: React.FC<ListTabsProps> = ({ selectedId, lists, onSelect }) => {
                     const id = Number(v);
                     onSelect(id);
                 }}
+                scrollable
             >
                 {lists.map((l) => (
                     <IonSegmentButton key={l.id} value={String(l.id)}>
