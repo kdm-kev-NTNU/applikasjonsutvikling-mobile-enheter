@@ -13,12 +13,16 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">{title}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ListManager onSelectedTitleChange={setTitle} />
+        <div className="page-flex">
+          <IonHeader collapse="condense">
+            <IonToolbar>
+              <IonTitle size="large">{title}</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <div className="page-content">
+            <ListManager onSelectedTitleChange={setTitle} />
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );
