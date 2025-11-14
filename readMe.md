@@ -39,7 +39,7 @@ npx cap open android
 
 4) I Android Studio:
 - Velg emulator: Medium Phone — Android 16.0 ("Baklava"), API 36, x86_64
-- Trykk Run ▶
+- Trykk Run 
 
 #### Vanlige Android-byggeproblemer
 - Hvis Gradle-cacher skaper trøbbel: Build → Clean Project, deretter Rebuild Project.
@@ -48,11 +48,12 @@ npx cap open android
 
 
 ### Funksjonalitet
-- Flere lister med opprett/slett.
-- Faneoversikt med muligheten til å "scrolle" når listene blir for mange for å ha plass
+- Opprett/Slett filer
+- Horisontal og vertikal scrolling av hhv. faner og elementer
 - Legg til varer raskt med Enter; fokus forblir i input-feltet.
-- Ferdig/ikke‑ferdig-separasjon for elementer i handlelisten
-- skal legge til andre selv !!!
+- Kjøpt/Ukjøpt separasjon for elementer i handlelisten skjer ved et enkelt skjermtrykk
+- Permanent lagring, en liste per fil, oppdateres fortløppende basert på endringer (sletting av liste, endring av vare)
+
 
 ### Android‑emulator brukt
 - Medium Phone — Android 16.0 ("Baklava"), API 36, x86_64
