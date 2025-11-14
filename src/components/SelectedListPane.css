@@ -1,24 +1,20 @@
-.selected-pane {
-    padding-top: 4px;
-}
-
 .pane-toolbar {
     display: flex;
     justify-content: flex-end;
-    padding: 6px 12px;
+    padding: var(--space-2, 8px) var(--space-3, 12px);
 }
 
 .section-title {
-    padding: 0 12px;
+    padding: 0 var(--space-3, 12px);
     font-weight: 600;
-    margin-top: 8px;
+    margin-top: var(--space-2, 8px);
 }
 
 .item-row {
     display: flex;
     align-items: center;
     width: 100%;
-    gap: 8px;
+    gap: var(--space-2, 8px);
 }
 
 .item-index {

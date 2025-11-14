@@ -26,7 +26,7 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
     autoFocusItemInput
 }) => {
     return (
-        <div className="selected-pane">
+        <div className="ion-padding-top">
             <div className="pane-toolbar">
                 <IonButton color="danger" fill="outline" size="small" onClick={onDeleteList}>
                     Slett liste
@@ -77,5 +77,3 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
 };
 
 export default SelectedListPane;
-
-
