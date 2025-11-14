@@ -3,12 +3,6 @@ import { IonButton, IonInput, IonItem } from '@ionic/react';
 import './AddItemInput.css';
 
 
-// Note: Denne brukes både til "Ny liste..." og "Legg til vare...".
-// Jeg prøver å holde oppførselen lik (Enter/klikk) og fokusere feltet etter submit,
-// så tastaturet holder seg oppe på Android
-
-//Todo: Fikse det slik at når man trykket på et input felt, så dukker tastaturet opp
-
 interface AddItemInputProps {
     placeholder?: string;
     initialValue?: string;
