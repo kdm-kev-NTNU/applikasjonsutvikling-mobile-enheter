@@ -16,6 +16,35 @@ interface SelectedListPaneProps {
     autoFocusItemInput?: boolean;
 }
 
+function renderSection(
+    title: string,
+    items: TodoItem[],
+    onToggleItem: (id: number) => void,
+    done = false
+) {
+    return (
+        <>
+            <div className="section-title">{title}</div>
+            <IonList inset>
+                {items.map((it, idx) => (
+                    <IonItem
+                        key={it.id}
+                        button
+                        detail={false}
+                        onClick={() => onToggleItem(it.id)}
+                        className={done ? 'item-done' : undefined}
+                    >
+                        <div className="item-row">
+                            <div className="item-index">{idx + 1}.</div>
+                            <div className={`item-text${done ? ' item-text--done' : ''}`}>{it.text}</div>
+                        </div>
+                    </IonItem>
+                ))}
+            </IonList>
+        </>
+    );
+}
+
 const SelectedListPane: React.FC<SelectedListPaneProps> = ({
     list,
     itemDraft,
@@ -39,39 +68,8 @@ const SelectedListPane: React.FC<SelectedListPaneProps> = ({
                 onSubmit={onAddItem}
                 autoFocus={!!autoFocusItemInput}
             />
-            <div className="section-title">Ukjøpt</div>
-            <IonList inset>
-                {list.items.filter(it => !it.done).map((it, idx) => (
-                    <IonItem
-                        key={it.id}
-                        button
-                        detail={false}
-                        onClick={() => onToggleItem(it.id)}
-                    >
-                        <div className="item-row">
-                            <div className="item-index">{idx + 1}.</div>
-                            <div className="item-text">{it.text}</div>
-                        </div>
-                    </IonItem>
-                ))}
-            </IonList>
-            <div className="section-title">Kjøpt</div>
-            <IonList inset>
-                {list.items.filter(it => it.done).map((it, idx) => (
-                    <IonItem
-                        key={it.id}
-                        button
-                        detail={false}
-                        onClick={() => onToggleItem(it.id)}
-                        className="item-done"
-                    >
-                        <div className="item-row">
-                            <div className="item-index">{idx + 1}.</div>
-                            <div className="item-text item-text--done">{it.text}</div>
-                        </div>
-                    </IonItem>
-                ))}
-            </IonList>
+            {renderSection('Ukjøpt', list.items.filter(it => !it.done), onToggleItem, false)}
+            {renderSection('Kjøpt', list.items.filter(it => it.done), onToggleItem, true)}
         </div>
     );
 };
