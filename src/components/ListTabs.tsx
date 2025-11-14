@@ -1,5 +1,4 @@
 import { IonLabel, IonSegment, IonSegmentButton } from '@ionic/react';
-import './ListTabs.css';
 
 type Tab = { id: number; title: string };
 
@@ -11,7 +10,7 @@ interface ListTabsProps {
 
 const ListTabs: React.FC<ListTabsProps> = ({ selectedId, lists, onSelect }) => {
     return (
-        <div className="tabs-wrapper">
+        <div className="ion-padding-horizontal ion-margin-top">
             <IonSegment
                 // IonSegment forventer string value; derfor String(id) og undefined ved null.
                 value={selectedId ? String(selectedId) : undefined}
@@ -35,5 +34,3 @@ const ListTabs: React.FC<ListTabsProps> = ({ selectedId, lists, onSelect }) => {
 };
 
 export default ListTabs;
-
-
