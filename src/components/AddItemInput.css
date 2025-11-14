@@ -1,3 +1,7 @@
 .add-item {
-    margin: 12px;
+    margin: var(--space-3, 12px);
+
+    /* Tilpass IonItem via CSS-variabler i stedet for ekstra wrappers */
+    --padding-start: var(--space-3, 12px);
+    --inner-padding-end: var(--space-3, 12px);
 }
