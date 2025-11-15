@@ -61,11 +61,11 @@ npx cap open android
 
 For at det blir synlig må man trykke alt + k på windows and option + k på mac, for at man skal kunne se testaturen på emulatoren
 
+NB: For å kunne ha keyboard med norsk tastatur på emulatoren, må dette bli lagt til via keyboard settings.
 
 ## Android‑emulator brukt
 - Medium Phone — Android 16.0 ("Baklava"), API 36, x86_64
 
-### Obs seksjon for hvordan man kan bruke norsk tastatur - hvis man vil teste det på norsk
 
 ## Logging av filoperasjoner 
 Nedenfor er det bildeutklipp som viser bruken av en enkel json fil per liste for å sikre persistens og å holde styr på endringene som foregår.
