@@ -2,7 +2,7 @@
 # Handlekurva 
 **Prosjektoppgaven i IDATT2506 – applikasjonsutvikling for mobile enheter**
 
-En enkel, rask og vedvarende handleliste-app utviklet i faget IDATT2506. Appen kjører som webapp og kan pakkes til Android med Capacitor.
+En enkel, rask og vedvarende handleliste-app utviklet i faget IDATT2506 utviklet i Ionic med React. Appen kjører som webapp og kan pakkes til Android med Capacitor.
 
 ## Kjøring lokalt (web)
 
