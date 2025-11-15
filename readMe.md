@@ -62,8 +62,7 @@ npx cap open android
 
 ### Obs seksjon for hvordan man kan bruke norsk tastatur - hvis man vil teste det på norsk
 
-### Filoperasjonslogg (plassholdere)
-
+### Filoperasjonslogg
 Nedenfor er det bildeutklipp som viser bruken av en enkel json fil per liste for å sikre persistens og å holde styr på endringene som foregår.
 
 ### Logging av filoperasjoner 
