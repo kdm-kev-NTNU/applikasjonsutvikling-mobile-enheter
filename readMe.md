@@ -68,12 +68,24 @@ Fyll inn skjermklipp og korte beskrivelser fra videoen senere. Bruk gjerne forma
 
 ### Logging av filoperasjoner 
 
-#### Lagring av liste
+#### Opprettelse av liste
+<img width="1581" height="63" alt="opprettelse av liste" src="https://github.com/user-attachments/assets/4a1ea6d5-4956-48e3-ab4b-28ccbb61d757" />
+
+
+
+### Fortløppende endring av liste (fra ukjøpt til kjøpt og motsatt) 
+<img width="1548" height="46" alt="kontinuerlig endring - fra ukjøpt til kjøpt eller tilbake" src="https://github.com/user-attachments/assets/e6fe0136-57ad-40fb-a027-687a7258c762" />
 
 
 #### Sletting av liste
 
+<img width="1290" height="30" alt="sletting av liste" src="https://github.com/user-attachments/assets/deeeddf4-90d9-4f61-8685-71a996a97f52" />
 
-#### Oppdatering av liste
+
+#### Item lagt til i liste
+
+<img width="1570" height="71" alt="item lagt til i liste" src="https://github.com/user-attachments/assets/5d4e87a2-1bb5-4148-9d00-b0ad8b39ca9c" />
+
+
 
 
