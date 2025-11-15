@@ -53,7 +53,8 @@ npx cap open android
 - Legg til varer raskt med Enter; fokus forblir i input-feltet.
 - Kjøpt/Ukjøpt separasjon for elementer i handlelisten skjer ved et enkelt skjermtrykk
 - Permanent lagring, en liste per fil, oppdateres fortløppende basert på endringer (sletting av liste, endring av vare)
-- Tastatur holder seg oppe under innstasting av varer, for å oppnå dette må (bilde av hva man må trykke på)
+- Tastatur holder seg oppe under innstasting av varer, for å oppnå dette må man trykke på ikonet
+<img width="617" height="35" alt="vise tastatur" src="https://github.com/user-attachments/assets/d5d3f6e6-a0b0-4a47-85d3-2e00aa4c10c5" />
 - I tillegg med alt + k, blir trykket på windows and xxx på mac, for at man skal kunne se dette
 
 
