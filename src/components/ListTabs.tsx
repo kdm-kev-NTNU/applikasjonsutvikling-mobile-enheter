@@ -2,12 +2,14 @@ import { IonLabel, IonSegment, IonSegmentButton } from '@ionic/react';
 
 type Tab = { id: number; title: string };
 
+// Props for ListTabs
 interface ListTabsProps {
     selectedId: number | null;
     lists: Tab[];
     onSelect: (id: number) => void;
 }
 
+// ListTabs komponent
 const ListTabs: React.FC<ListTabsProps> = ({ selectedId, lists, onSelect }) => {
     return (
         <IonSegment

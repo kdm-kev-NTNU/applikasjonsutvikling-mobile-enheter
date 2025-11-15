@@ -5,6 +5,7 @@ import './SelectedListPane.css';
 type TodoItem = { id: number; text: string; done: boolean };
 type ListModel = { id: number; title: string; items: TodoItem[] };
 
+// Props for SelectedListPane
 interface SelectedListPaneProps {
     list: ListModel;
     itemDraft: string;
@@ -16,6 +17,7 @@ interface SelectedListPaneProps {
     autoFocusItemInput?: boolean;
 }
 
+// RenderSection komponent
 function renderSection(
     title: string,
     items: TodoItem[],
@@ -45,6 +47,7 @@ function renderSection(
     );
 }
 
+// SelectedListPane komponent
 const SelectedListPane: React.FC<SelectedListPaneProps> = ({
     list,
     itemDraft,

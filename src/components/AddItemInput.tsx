@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { IonButton, IonInput, IonItem } from '@ionic/react';
 import './AddItemInput.css';
 
-
+// Props for AddItemInput
 interface AddItemInputProps {
     placeholder?: string;
     initialValue?: string;
@@ -21,7 +21,7 @@ const AddItemInput: React.FC<AddItemInputProps> = ({ placeholder, initialValue, 
         }
     }, [initialValue]);
 
-
+    // Håndterer endringer i input
     const handleChange = (e: CustomEvent) => {
         const v = (e as any).detail?.value ?? '';
         setText(v);

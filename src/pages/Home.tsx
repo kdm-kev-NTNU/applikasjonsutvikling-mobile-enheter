@@ -2,8 +2,10 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import ListManager from '../components/ListManager';
 import { useState } from 'react';
 
+// Home komponent
 const Home: React.FC = () => {
   const [title, setTitle] = useState('Blank');
+  // Returnerer Home-siden
   return (
     <IonPage>
       <IonHeader>

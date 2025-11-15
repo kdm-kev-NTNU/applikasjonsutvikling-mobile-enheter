@@ -7,8 +7,7 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 const LISTS_DIR = 'lists';
 const VERBOSE_LOG_DIR = false; // sett til true for mer katalog-logging
 
-// (legacy navn fjernet)
-
+// Brukes for å generere et filnavn basert på tittel - for tydlig logging liste endringer
 function slugifyTitle(input: string): string {
     const lower = String(input || '').toLowerCase().trim();
     let slug = lower
@@ -30,15 +29,18 @@ function slugifyTitle(input: string): string {
     return slug;
 }
 
+// Genererer ny filnavn basert på tittel og id
 function newFileName(title: string, id: number): string {
     const slug = slugifyTitle(title);
     return `${slug}-${id}.json`;
 }
 
+// Genererer ny filsti basert på tittel og id
 function newFilePath(title: string, id: number): string {
     return `${LISTS_DIR}/${newFileName(title, id)}`;
 }
 
+// Finn eksisterende fil for id
 async function findExistingFileForId(id: number): Promise<string | null> {
     try {
         const res = await Filesystem.readdir({
@@ -59,6 +61,7 @@ async function findExistingFileForId(id: number): Promise<string | null> {
     }
 }
 
+// Leser en liste basert på id
 async function readListById(id: number): Promise<ListModel | null> {
     try {
         const path = await findExistingFileForId(id);
