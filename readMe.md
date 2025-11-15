@@ -42,8 +42,8 @@ npx cap open android
 - Trykk Run 
 
 #### Vanlige Android-byggeproblemer
-- Hvis Gradle-cacher skaper trøbbel: Build → Clean Project, deretter Rebuild Project.
-- Etter endringer i web-ressurser: kjør alltid `npm run build` etterfulgt av `npx cap sync android`.
+- Gradle-relatert feil: Prøv Build → Clean Project, og deretter Rebuild Project. Hvis problemet vedvarer, kan det være nødvendig å slette .gradle-mappen og la Android Studio regenerere filene.
+- Endringer i web-ressurser: Kjør npm run build før npx cap sync android. Uten dette risikerer man at endringene ikke dukker opp i den native Android-appen.
 
 
 
