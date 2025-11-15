@@ -64,7 +64,7 @@ npx cap open android
 
 ### Filoperasjonslogg (plassholdere)
 
-Fyll inn skjermklipp og korte beskrivelser fra videoen senere. Bruk gjerne formatet under for hver operasjon:
+Nedenfor er det bildeutklipp som viser bruken av en enkel json fil per liste for å sikre persistens og å holde styr på endringene som foregår.
 
 ### Logging av filoperasjoner 
 
