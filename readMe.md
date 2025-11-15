@@ -53,10 +53,14 @@ npx cap open android
 - Legg til varer raskt med Enter; fokus forblir i input-feltet.
 - Kjøpt/Ukjøpt separasjon for elementer i handlelisten skjer ved et enkelt skjermtrykk
 - Permanent lagring, en liste per fil, oppdateres fortløppende basert på endringer (sletting av liste, endring av vare)
+- Tastatur holder seg oppe under innstasting av varer, for å oppnå dette må (bilde av hva man må trykke på)
+- I tillegg med alt + k, blir trykket på windows and xxx på mac, for at man skal kunne se dette
 
 
 ### Android‑emulator brukt
 - Medium Phone — Android 16.0 ("Baklava"), API 36, x86_64
+
+### Obs seksjon for hvordan man kan bruke norsk tastatur - hvis man vil teste det på norsk
 
 ### Filoperasjonslogg (plassholdere)
 
