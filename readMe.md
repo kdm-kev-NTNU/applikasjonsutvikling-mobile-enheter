@@ -55,7 +55,8 @@ npx cap open android
 - Persistent lagring, en liste per fil, oppdateres fortløppende basert på endringer (sletting av liste, endring av vare)
 - Når en ny liste opprettes, flyttes fokus automatisk fra listefeltet til varefeltet.
 - Tastatur holder seg oppe under innstasting av varer, for å oppnå dette må man trykke på ikonet
-<img width="617" height="35" alt="vise tastatur" src="https://github.com/user-attachments/assets/d5d3f6e6-a0b0-4a47-85d3-2e00aa4c10c5" />
+<img width="617" height="35" alt="vise tastatur" src="https://github.com/user-attachments/assets/34d4b64e-b658-4721-bdbc-5bf59073ab61" />
+
 
 For at det blir synlig må man trykke alt + k på windows and option + k på mac, for at man skal kunne se testaturen på emulatoren
 
