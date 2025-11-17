@@ -48,7 +48,7 @@ npx cap open android
 - Horisontal og vertikal scrolling av hhv. faner og elementer
 - Legg til varer raskt med Enter; fokus forblir i input-feltet.
 - Kjøpt/Ukjøpt separasjon for elementer i handlelisten skjer ved et enkelt skjermtrykk
-- Persistent lagring, en liste per fil, oppdateres fortløppende basert på endringer (sletting av liste, endring av vare)
+- Persistent lagring, en liste per fil, oppdateres fortløppende basert på endringer (sletting av liste, endring av varestatus)
 - Når en ny liste opprettes, flyttes fokus automatisk fra listefeltet til varefeltet.
 - Tastatur holder seg oppe under innstasting av varer, for å oppnå dette må man trykke på ikonet under:
 <img width="617" height="35" alt="vise tastatur" src="https://github.com/user-attachments/assets/34d4b64e-b658-4721-bdbc-5bf59073ab61" />
