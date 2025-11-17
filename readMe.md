@@ -42,11 +42,6 @@ npx cap open android
 - Velg emulator: Medium Phone — Android 16.0 ("Baklava"), API 36, x86_64
 - Trykk Run 
 
-## Vanlige Android-byggeproblemer
-- Gradle-relatert feil: Prøv Build → Clean Project, og deretter Rebuild Project. Hvis problemet vedvarer, kan det være nødvendig å slette .gradle-mappen og la Android Studio regenerere filene.
-- Endringer i web-ressurser: Kjør npm run build før npx cap sync android. Uten dette risikerer man at endringene ikke dukker opp i den native Android-appen.
-
-
 
 ## Funksjonalitet
 - Opprett/Slett filer
