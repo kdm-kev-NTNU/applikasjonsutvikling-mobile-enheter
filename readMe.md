@@ -42,6 +42,23 @@ npx cap open android
 - Velg emulator: Medium Phone — Android 16.0 ("Baklava"), API 36, x86_64
 - Trykk Run 
 
+## Feilsøking
+ 
+### Android Gradle Plugin (AGP) versjonskonflikt
+ 
+Hvis du får en feilmelding om at prosjektet bruker en inkompatibel versjon av Android Gradle Plugin (f.eks. "AGP 8.13.0" når den støttede versjonen er "AGP 8.12.0"):
+ 
+**Løsning:**
+ 
+1. Åpne filen `android/build.gradle`
+2. Finn linjen med `classpath 'com.android.tools.build:gradle:8.13.0'` (eller en nyere versjon)
+3. Endre versjonsnummeret til den støttede versjonen (f.eks. `8.12.0`)
+4. Synkroniser Gradle-filene i Android Studio (File → Sync Project with Gradle Files)
+5. Hvis problemet vedvarer, prøv å invalidere caches (File → Invalidate Caches / Restart)
+ 
+**Hvorfor skjer dette?**
+Nyere versjoner av Android Gradle Plugin krever nyere versjoner av Android Studio eller Gradle. Hvis din installasjon ikke støtter den nyeste AGP-versjonen, må du nedgradere til en kompatibel versjon.
+ 
 
 ## Funksjonalitet
 - Opprett/Slett filer
