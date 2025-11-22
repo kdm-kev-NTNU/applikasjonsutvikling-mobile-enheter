@@ -4,15 +4,23 @@
 
 En enkel, rask og vedvarende handleliste-app utviklet i faget IDATT2506 utviklet i Ionic med React. Appen kjører som webapp og kan pakkes til Android med Capacitor.
 
-## Kjøring lokalt (web)
+## Oppsett
 
-1) Installer avhengigheter:
+1. Installer avhengigheter:
 
 ```bash
 npm install
 ```
 
-2) Kjør utviklingsserver:
+2. Bygg applikasjonen:
+
+```bash
+npm run build
+```
+
+## Kjøring lokalt (web)
+
+Kjør utviklingsserver:
 
 ```bash
 npm run dev
@@ -20,27 +28,22 @@ npm run dev
 
 ## Bygg og kjør på Android
 
-1) Bygg web-ressurser:
-
-```bash
-npm run build
-```
-
-2) Synkroniser til Android-prosjekt:
+1. Synkroniser til Android-prosjekt:
 
 ```bash
 npx cap sync android
 ```
 
-3) Åpne Android-prosjektet:
+2. Åpne Android-prosjektet:
 
 ```bash
 npx cap open android
 ```
 
-4) I Android Studio:
+3. I Android Studio:
+
 - Velg emulator: Medium Phone — Android 16.0 ("Baklava"), API 36, x86_64
-- Trykk Run 
+- Trykk Run
 
 ## Feilsøking
  
